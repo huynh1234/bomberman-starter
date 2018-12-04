@@ -163,7 +163,7 @@ public class Bomber extends Character {
         if(ya > 0) _direction = 2;
         if(ya < 0) _direction = 0;
 
-        if(canMove(0, ya)) { //separate the moves for the player can slide when is colliding
+        if(canMove(0, ya)) { //separate the moves for the player can slide when is colliding,tách các di chuyển cho người chơi có thể trượt khi va chạm
             _y += ya;
         }
 
@@ -176,17 +176,18 @@ public class Bomber extends Character {
     public boolean collide(Entity e) {
         // TODO: xử lý va chạm với Flame
         // TODO: xử lý va chạm với Enemy
-        if(e instanceof Flame) {
-            kill();
-            return false;
-        }
+        if(!_input.khien) {
+            if (e instanceof Flame) {
+                kill();
+                return true;
+            }
 
-        if(e instanceof Enemy) {
-            kill();
-            return true;
+            if (e instanceof Enemy) {
+                kill();
+                return true;
+            }
         }
-
-        return true;
+        return false;
     }
 
     private void chooseSprite() {

@@ -10,7 +10,7 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
-public class Bomb extends AnimatedEntitiy {
+public class Bomb extends AnimatedEntitiy{
 
 	protected double _timeToExplode = 180; //120:2 seconds
 	public int _timeAfter = 20;
