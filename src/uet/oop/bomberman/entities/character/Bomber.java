@@ -176,10 +176,14 @@ public class Bomber extends Character {
     public boolean collide(Entity e) {
         // TODO: xử lý va chạm với Flame
         // TODO: xử lý va chạm với Enemy
-        if(!_input.khien) {
+        int lachan =5;
+        if(!_input.khien&& lachan>0) {
             if (e instanceof Flame) {
                 kill();
                 return true;
+            }
+            if(_input.khien){
+                lachan--;
             }
 
             if (e instanceof Enemy) {

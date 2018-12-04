@@ -90,7 +90,7 @@ public class Bomb extends AnimatedEntitiy{
 		Flame flame2=new Flame((int)_x,(int)_y,2, Game.getBombRadius(),_board);
 		Flame flame3=new Flame((int)_x,(int)_y,3, Game.getBombRadius(),_board);
 		_flames=new Flame[]{flame0,flame1,flame2,flame3};
-		_timeToExplode = 0;
+		_timeToExplode = 5;
 
 	}
 

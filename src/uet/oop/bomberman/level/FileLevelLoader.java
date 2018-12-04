@@ -5,6 +5,7 @@ import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.LayeredEntity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Balloon;
+import uet.oop.bomberman.entities.character.enemy.Doll;
 import uet.oop.bomberman.entities.character.enemy.Oneal;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.Portal;
@@ -105,13 +106,16 @@ public class FileLevelLoader extends LevelLoader {
 						_board.addCharacter(new Oneal(Coordinates.tileToPixel(x),Coordinates.tileToPixel(y)+Game.TILES_SIZE,_board));
 						_board.addEntity(pos, new Grass(x,y,Sprite.grass));
 						break;
-
+					case '3':
+						_board.addCharacter(new Doll(Coordinates.tileToPixel(x),Coordinates.tileToPixel(y)+Game.TILES_SIZE,_board));
+						_board.addEntity(pos, new Grass(x,y,Sprite.grass));
+						break;
 					default:
 						_board.addEntity(pos,new Grass(x,y,Sprite.grass));
 				}
 			}
 		}
-		// thêm Wall
+//		 //thêm Wall
 //		for (int x = 0; x < 20; x++) {
 //			for (int y = 0; y < 20; y++) {
 //				int pos = x + y * _width;
@@ -119,7 +123,7 @@ public class FileLevelLoader extends LevelLoader {
 //				_board.addEntity(pos, new Grass(x, y, sprite));
 //			}
 //		}
-//
+
 //		// thêm Bomber
 //		int xBomber = 1, yBomber = 1;
 //		_board.addCharacter( new Bomber(Coordinates.tileToPixel(xBomber), Coordinates.tileToPixel(yBomber) + Game.TILES_SIZE, _board) );
