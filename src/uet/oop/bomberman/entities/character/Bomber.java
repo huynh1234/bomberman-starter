@@ -71,7 +71,6 @@ public class Bomber extends Character {
      * Kiểm tra xem có đặt được bom hay không? nếu có thì đặt bom tại vị trí hiện tại của Bomber
      */
     private void detectPlaceBomb() {
-
         // TODO: kiểm tra xem phím điều khiển đặt bom có được gõ và giá trị _timeBetweenPutBombs, Game.getBombRate() có thỏa mãn hay không
         // TODO:  Game.getBombRate() sẽ trả về số lượng bom có thể đặt liên tiếp tại thời điểm hiện tại
         // TODO: _timeBetweenPutBombs dùng để ngăn chặn Bomber đặt 2 Bomb cùng tại 1 vị trí trong 1 khoảng thời gian quá ngắn
@@ -79,8 +78,8 @@ public class Bomber extends Character {
         // TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs về 0
         if(_input.space&&_timeBetweenPutBombs<0&&Game.getBombRate()>=1)
         {
-            int x = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
-            int y = Coordinates.pixelToTile( (_y + _sprite.getSize() / 2) - _sprite.getSize() );
+            int x = Coordinates.pixelToTile(_x+_sprite.getSize()/2);
+            int y = Coordinates.pixelToTile( (_y)-_sprite.getSize()/2);
             placeBomb(x,y);
             Game.addBombRate(-1);
             _timeBetweenPutBombs=30;
@@ -89,7 +88,7 @@ public class Bomber extends Character {
 
     protected void placeBomb(int x, int y) {
         // TODO: thực hiện tạo đối tượng bom, đặt vào vị trí (x, y)
-        Bomb bomb = new Bomb(x,y,_board);
+        Bomb bomb=new Bomb(x,y,_board);
         _bombs.add(bomb);
     }
 
@@ -142,14 +141,14 @@ public class Bomber extends Character {
     @Override
     public boolean canMove(double x, double y) {
         // TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
-        for(int i=0;i<4;i++)
-        {
-            double xd=((_x+x)+i%2*11)/Game.TILES_SIZE;
-            double yd=((_y+y)+i/2*12-13)/Game.TILES_SIZE;
-            Entity a=_board.getEntity(xd,yd,this);
-            if(!a.collide(this))
-                return false;
-        }
+            for(int i=0;i<4;i++)
+            {
+                double xd=((_x+x)+i%2*11)/Game.TILES_SIZE;
+                double yd=((_y+y)+i/2*12-13)/Game.TILES_SIZE;
+                Entity a=_board.getEntity(xd,yd,this);
+                if(!a.collide(this))
+                    return false;
+            }
 
         return true;
     }
@@ -158,32 +157,34 @@ public class Bomber extends Character {
     public void move(double xa, double ya) {
         // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không và thực hiện thay đổi tọa độ _x, _y
         // TODO: nhớ cập nhật giá trị _direction sau khi di chuyển
-        if(xa > 0) _direction = 1;
-        if(xa < 0) _direction = 3;
-        if(ya > 0) _direction = 2;
-        if(ya < 0) _direction = 0;
-
-        if(canMove(0, ya)) { //separate the moves for the player can slide when is colliding,tách các di chuyển cho người chơi có thể trượt khi va chạm
-            _y += ya;
+        if(xa>0)
+            _direction=1;
+        if(xa<0)
+            _direction=3;
+        if(ya>0)
+            _direction=2;
+        if(ya<0)
+            _direction=0;
+        if(canMove(xa,0))
+            _x+=xa;
+        if(canMove(0,ya))
+            _y+=ya;
+        _sprite = Sprite.player_up;
+        if (_input.khien) {
+            _direction=5;
         }
 
-        if(canMove(xa, 0)) {
-            _x += xa;
-        }
+
     }
 
     @Override
     public boolean collide(Entity e) {
         // TODO: xử lý va chạm với Flame
         // TODO: xử lý va chạm với Enemy
-        int lachan =5;
-        if(!_input.khien&& lachan>0) {
+        if(!_input.khien) {
             if (e instanceof Flame) {
                 kill();
-                return true;
-            }
-            if(_input.khien){
-                lachan--;
+                return false;
             }
 
             if (e instanceof Enemy) {
@@ -191,10 +192,11 @@ public class Bomber extends Character {
                 return true;
             }
         }
-        return false;
+        return true;
     }
 
     private void chooseSprite() {
+
         switch (_direction) {
             case 0:
                 _sprite = Sprite.player_up;
@@ -219,6 +221,12 @@ public class Bomber extends Character {
                 if (_moving) {
                     _sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
                 }
+                break;
+            case 5:
+                _sprite = Sprite.player_left;
+
+                    _sprite = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead3, _animate, 20);
+
                 break;
             default:
                 _sprite = Sprite.player_right;

@@ -19,7 +19,7 @@ public class BombItem extends Item {
 			Game.addBombRate(1);
 			remove();
 		}
-		return false;
+		return false ;
 	}
 	
 

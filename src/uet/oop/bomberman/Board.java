@@ -22,6 +22,7 @@ import java.util.List;
  * Quản lý thao tác điều khiển, load level, render các màn hình của game
  */
 public class Board implements IRender {
+	//protected Sound_cdjv sound =new Sound_cdjv("01_Title Screen.mp3");
 	protected LevelLoader _levelLoader;
 	protected Game _game;
 	protected Keyboard _input;

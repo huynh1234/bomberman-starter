@@ -1,7 +1,9 @@
 package uet.oop.bomberman.entities.bomb;
 
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.Character;
+import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -30,7 +32,7 @@ public class FlameSegment extends Entity {
 				} else {
 					_sprite = Sprite.explosion_vertical_top_last2;
 				}
-				break;
+			break;
 			case 1:
 				if(!last) {
 					_sprite = Sprite.explosion_horizontal2;
@@ -45,7 +47,7 @@ public class FlameSegment extends Entity {
 					_sprite = Sprite.explosion_vertical_down_last2;
 				}
 				break;
-			case 3:
+			case 3: 
 				if(!last) {
 					_sprite = Sprite.explosion_horizontal2;
 				} else {
@@ -54,15 +56,15 @@ public class FlameSegment extends Entity {
 				break;
 		}
 	}
-
+	
 	@Override
 	public void render(Screen screen) {
 		int xt = (int)_x << 4;
 		int yt = (int)_y << 4;
-
+		
 		screen.renderEntity(xt, yt , this);
 	}
-
+	
 	@Override
 	public void update() {}
 
@@ -76,6 +78,6 @@ public class FlameSegment extends Entity {
 
 		return true;
 	}
-
+	
 
 }
